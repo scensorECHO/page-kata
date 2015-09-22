@@ -4,7 +4,7 @@ public class PaginationHelper<I> {
   
   private List<I> collection;
   private int itemsPerPage;
-  private int pages;
+  private int maxPageIndex;
   
   /**
    * The constructor takes in an array of items and a integer indicating how many
@@ -13,7 +13,7 @@ public class PaginationHelper<I> {
   public PaginationHelper(List<I> collection, int itemsPerPage) {
     this.collection = collection;
     this.itemsPerPage = itemsPerPage;
-    pages = itemCount()/itemsPerPage;
+    maxPageIndex = itemCount()/itemsPerPage;
   }
   
   /**
@@ -27,7 +27,7 @@ public class PaginationHelper<I> {
    * returns the number of pages
    */
   public int pageCount() {
-    return pages + 1;
+    return maxPageIndex + 1;
   }
   
   /**
@@ -35,9 +35,9 @@ public class PaginationHelper<I> {
    * this method should return -1 for pageIndex values that are out of range
    */
   public int pageItemCount(int pageIndex) {
-    if(pageIndex>pages || pageIndex<0)
+    if(pageIndex>maxPageIndex || pageIndex<0)
       return -1;
-    return pageIndex!=pages
+    return pageIndex!=maxPageIndex
       ? itemsPerPage
       : itemCount()%itemsPerPage;
   }
